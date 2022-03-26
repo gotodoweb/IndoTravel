@@ -1,28 +1,36 @@
 import start from "./modules/start.js";
 
-const init = (op) => {
+const init = (op, timestamp, datatodiv) => {
 	// const overlay = document.querySelector(selector);
-	start(op);
+	start(op, timestamp, myDate);
 };
 
-function getRandomInRange(min, max) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
+const atribut = document.querySelector('.hero__timer');
+let yesno = atribut.getAttribute('data-timer-deadline');
+
+
+let datatodiv = yesno.slice(0, 10);
+
+
+let  yesnonew = yesno.replaceAll("/", ".");
+yesnonew = yesnonew.slice(0, 10);
+
+
+
+let myDate = yesno.slice(6, 10) + '.' + yesno.slice(3, 5) + '.' + yesno.slice(0, 2);
+console.log('myDate: ', myDate);
+
+
+
+let timestamp = Date.parse(myDate);
+console.log('timestamp: ', timestamp);
+
+var isDate = function (date) {
+	return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
 }
 
-let daysplus = Math.floor(getRandomInRange(24, 72) / 24);
+// console.log(isDate(yesno));
+let begin = isDate(myDate);
+console.log('begin: ', begin);
 
-
-
-
-let date = new Date();
-// console.log('date', date);
-
-date.setDate(date.getDate() + daysplus);
-// console.log('date', date);
-
-let usDate = date.toLocaleString("ru-RU", { timeZone: "Europe/Moscow" });
-
-
-
-
-init(usDate);
+init(begin, timestamp, datatodiv);
