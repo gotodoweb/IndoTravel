@@ -9,13 +9,20 @@ function getRandomInRange(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-let daysplus = getRandomInRange(1, 10) ;
-
-
-let datestop = new Date();
-datestop.setDate(datestop.getDate() + daysplus);
-// datestop = datestop.toLocaleString();
+let daysplus = Math.floor(getRandomInRange(24, 72) / 24);
 
 
 
-init(datestop);
+
+let date = new Date();
+// console.log('date', date);
+
+date.setDate(date.getDate() + daysplus);
+// console.log('date', date);
+
+let usDate = date.toLocaleString("ru-RU", { timeZone: "Europe/Moscow" });
+
+
+
+
+init(usDate);
