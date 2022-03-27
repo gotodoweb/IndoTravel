@@ -12,17 +12,20 @@ function getRandomInRange(min, max) {
 let daysplus = Math.floor(getRandomInRange(24, 72) / 24);
 
 
+// function changeTimezone() {
+
+// 	let datestop = new Date();	
+// 	let usDate = datestop.toLocaleString("ru-RU", { timeZone: "Europe/Moscow" });
+// 	return usDate;
+// }
 
 
 let date = new Date();
-// console.log('date', date);
+
 
 date.setDate(date.getDate() + daysplus);
-// console.log('date', date);
 
 let usDate = date.toLocaleString("ru-RU", { timeZone: "Europe/Moscow" });
-
-
 
 
 init(usDate);
