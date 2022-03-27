@@ -11,72 +11,51 @@ const start = (deadline) => {
 	eltimer.dataset.deadline = new Date(deadline).toLocaleString();
 	eltimer.dataset.timerDeadline = new Date().toLocaleString();
 	
+	const getzeroten = (period) => {
+
+		return `${period % 60}` < 10 ? `0${period % 60}` : `${period % 60}`;
+	};
+
+	const declOfNum = (n, titles) => titles[n % 10 === 1 && n % 100 !== 11 ?
+		0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
 
 	const getDeadline = () => {
-		
 
 		let dateBreak = new Date(deadline).getTime();
-		
-		
-		let dateNow = Date.now();		
+			
+		let dateNow = Date.now();
+
 		let timeRemaining = dateBreak - dateNow;
-	
 
-		const minutes = Math.floor(timeRemaining / 1000 / 60 % 60);
+		let minutes = Math.floor(timeRemaining / 1000 / 60 % 60);	
+		minutes = getzeroten(minutes);
 
-
-		const hours = Math.floor(timeRemaining / 1000 / 60 / 60 % 24);
-
+		// `(${hours} % 12 || 12) < 10 ? '0' : '') + ${hours} % 12 || 12)`
+		
+		let hours = Math.floor(timeRemaining / 1000 / 60 / 60 % 24);	
+		hours = getzeroten(hours);
 
 		const days = Math.floor(timeRemaining / 1000 / 60 / 60 / 24 );
 		
-
 		return { timeRemaining, minutes, hours, days };
 	}
 
 	const runtimer = () => {
 	
-		let gettimer = getDeadline();
+		let gettimer = getDeadline();		
 
 		timerBlockDay.textContent = gettimer.days;		
 		timerBlockHour.textContent = gettimer.hours;
 		timerBlockMin.textContent = gettimer.minutes;
 
-		if (gettimer.minutes < 10) {
-			timerBlockMin.textContent = `0${gettimer.minutes}`;
-		};
-
-		if (gettimer.hours < 10) {
-			timerBlockHour.textContent = `0${gettimer.hours}`;
-			// timerBlockHour.textContent = `(${hours} % 12 || 12) < 10 ? '0' : '') + ${ hours } % 12 || 12)`;
-		};
-
-		const arrdays = ['день', 'дня', 'дней']
 		const timerdays = document.querySelector('.timer__units_days');
-
-		const declOfNum = (n, titles) => titles[n % 10 === 1 && n % 100 !== 11 ?
-			0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
-
-		timerdays.textContent = declOfNum(`${gettimer.days}`, arrdays);
+		timerdays.textContent = declOfNum(`${gettimer.days}`, ['день', 'дня', 'дней']);
 	
-		const arrhours = ['час', 'часа', 'часов']
 		const timerhours = document.querySelector('.timer__units_hours');
+		timerhours.textContent = declOfNum(`${gettimer.hours}`, ['час', 'часа', 'часов'])
 
-		const declOfNum3 = (n, titles) => titles[n % 10 === 1 && n % 100 !== 11 ?
-			0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
-
-		timerhours.textContent = declOfNum3(`${gettimer.hours}`, arrhours);
-
-
-		const arrminutes = ['минута', 'минуы', 'минут']
 		const timerminutes = document.querySelector('.timer__units_minutes');
-
-		const declOfNum1 = (n, titles) => titles[n % 10 === 1 && n % 100 !== 11 ?
-			0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
-
-		timerminutes.textContent = declOfNum1(`${gettimer.minutes}`, arrminutes);
-
-
+		timerminutes.textContent = declOfNum(`${gettimer.minutes}`, ['минута', 'минуты', 'минут']);
 
 		const interbalId = setTimeout(runtimer, 1000);
 		if (gettimer.timeRemaining <= 0) {
@@ -93,8 +72,6 @@ const start = (deadline) => {
 	}
 	runtimer();
 };
-
-
 
 
 export default start;

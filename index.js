@@ -9,7 +9,7 @@ function getRandomInRange(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-let daysplus = getRandomInRange(1, 10) ;
+let daysplus = getRandomInRange(24, 120) % 24;
 
 
 let datestop = new Date();
@@ -17,5 +17,7 @@ datestop.setDate(datestop.getDate() + daysplus);
 // datestop = datestop.toLocaleString();
 
 
+let stop = String(datestop).slice(0, -3);
 
-init(datestop);
+
+init(stop);
