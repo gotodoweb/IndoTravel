@@ -20,29 +20,39 @@ const start = (deadline) => {
 		0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
 
 	const getDeadline = () => {
+		console.log('deadline', deadline);
 
 		let dateBreak = new Date(deadline).getTime();
-			
+		console.log('dateBreak: ', dateBreak);
+		
 		let dateNow = Date.now();
+		console.log('dateNow: ', dateNow);
 
+		// let timeRemaining  = datestop - dateNow;
 		let timeRemaining = dateBreak - dateNow;
+		console.log('timeRemainig: ', timeRemaining);
 
-		let minutes = Math.floor(timeRemaining / 1000 / 60 % 60);	
+		let minutes = Math.floor(timeRemaining / 1000 / 60 % 60);
+		console.log('minutes: ', minutes);
 		minutes = getzeroten(minutes);
 
 		// `(${hours} % 12 || 12) < 10 ? '0' : '') + ${hours} % 12 || 12)`
 		
-		let hours = Math.floor(timeRemaining / 1000 / 60 / 60 % 24);	
+		let hours = Math.floor(timeRemaining / 1000 / 60 / 60 % 24);
+		console.log('hours: ', hours);
 		hours = getzeroten(hours);
 
+
 		const days = Math.floor(timeRemaining / 1000 / 60 / 60 / 24 );
-		
+		console.log('days: ', days);
+
 		return { timeRemaining, minutes, hours, days };
 	}
 
 	const runtimer = () => {
 	
-		let gettimer = getDeadline();		
+		let gettimer = getDeadline();
+		console.log('gettimer: ', gettimer);
 
 		timerBlockDay.textContent = gettimer.days;		
 		timerBlockHour.textContent = gettimer.hours;
@@ -54,6 +64,7 @@ const start = (deadline) => {
 		const timerhours = document.querySelector('.timer__units_hours');
 		timerhours.textContent = declOfNum(`${gettimer.hours}`, ['час', 'часа', 'часов'])
 
+		
 		const timerminutes = document.querySelector('.timer__units_minutes');
 		timerminutes.textContent = declOfNum(`${gettimer.minutes}`, ['минута', 'минуты', 'минут']);
 
