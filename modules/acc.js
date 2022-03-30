@@ -1,13 +1,12 @@
-console.log('аккардеон');
+
 const items = document.querySelectorAll('.travel__item');
-console.log('items: ', items);
+
 
 const itemsButtons = document.querySelectorAll('.travel__item-title');
-console.log('itemsButtons: ', itemsButtons);
 
 
 const textWrapper = document.querySelectorAll('.travel__item-text-wrapper');
-console.log('textWrapper: ', textWrapper);
+
 
 
 let heightWrapper = 0;
