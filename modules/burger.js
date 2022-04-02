@@ -1,6 +1,7 @@
 
 const buttonMenu = document.querySelector('.header__menu-button');
-const docEl = document.documentElement;
+const docElem = document.documentElement;
+
 
 const headerMenu = document.querySelector('.header__menu');
 
@@ -43,15 +44,15 @@ function bounce(timeFraction) {
 
 buttonMenu.addEventListener('click', () => {
 	startAnimation(duration, (progress) => {
-				
-		if ( 1150 < docEl.clientWidth < 1500) {
+
+		if (1150 < docElem.clientWidth < 1500) {
 			distance = 50;
 			let left = bounce(progress) * distance;
 			// let left = easeInOut(progress) * distance;
 			headerMenu.style.transform = `translateX(${left}px)`;
 		}
 
-		if (docEl.clientWidth > 1500) {
+		if (docElem.clientWidth > 1500) {
 			distance = 180;
 			let left = bounce(progress) * distance;
 			// let left = easeInOut(progress) * distance;
@@ -66,15 +67,18 @@ buttonMenu.addEventListener('click', () => {
 
 headerItems.forEach(elem => {
 	elem.addEventListener('click', (e) => {
-		e.preventDefault();		
+		e.preventDefault();
+		// console.log('e.target', e.target);
 		headerMenu.classList.toggle('header__menu_active');
 	})
 });
 
 
 sectionHero.addEventListener('click', (e) => {
-	e.preventDefault();	
-	if (e.target !== headerMenu) {		
+	e.preventDefault();
+
+	if (e.target !== headerMenu) {
+
 		headerMenu.classList.remove('header__menu_active');
 	}
 })

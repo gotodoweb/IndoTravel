@@ -1,9 +1,12 @@
 
 const items = document.querySelectorAll('.travel__item');
 
+
 const itemsButtons = document.querySelectorAll('.travel__item-title');
 
+
 const textWrapper = document.querySelectorAll('.travel__item-text-wrapper');
+
 
 
 let heightWrapper = 0;

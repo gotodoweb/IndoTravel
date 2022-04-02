@@ -1,7 +1,21 @@
-
-
 const plane = document.createElement('div');
 const docEl = document.documentElement;
+
+
+let lastScrollTop = 0;
+window.onscroll = onScroll;
+
+function onScroll(e) {
+	var top = window.pageYOffset;
+	if (lastScrollTop > top) {		
+		plane.style.transform = 'rotate(180deg)';
+	} else if (lastScrollTop < top) {		
+		plane.style.transform = 'rotate(0deg)';
+	}
+	lastScrollTop = top;
+}
+
+
 
 
 
@@ -23,19 +37,17 @@ const calcPositionFLy = () => {
 	const maxtop = docEl.scrollHeight - plane.clientHeight;
 	const maxScroll = docEl.scrollHeight - docEl.clientHeight;
 	const percentScroll = (window.pageYOffset * 100) / maxScroll;
-
 	const height = window.innerHeight;
-
 	const scrollY = window.scrollY;
-
+	
 	// задать % расстоянию которое обозначает maxtop
 	// выяснить сколько процентов из maxtop нам необходимо прокрутить
 
 	const top = maxtop * (percentScroll / 100);
-	
 
 	if (percentScroll >= 99) {
 		plane.style.transform = `translateY(${maxScroll - top}px)`;
+		// plane.style.transform = 'rotate(180deg)';
 	}
 
 	if (percentScroll <= 1) {
@@ -45,13 +57,18 @@ const calcPositionFLy = () => {
 	if (docEl.clientWidth < 758) {
 		plane.style.transform = `translateY(${docEl.scrollHeight + plane.clientHeight}px)`;
 	}
+
+	
+	
+
 };
 
 window.addEventListener('scroll', calcPositionFLy);
 calcPositionFLy();
 
 window.addEventListener(`resize`, function() {
-		
+	console.log('resize');
+	console.log('docEl.clientWidth', docEl.clientWidth);
 	if (docEl.clientWidth < 758) {
 
 		plane.style.transform = `translateY(${docEl.scrollHeight + plane.clientHeight}px)`;
@@ -60,3 +77,6 @@ window.addEventListener(`resize`, function() {
 	}
 
 });
+
+
+
