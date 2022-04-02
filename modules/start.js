@@ -24,31 +24,32 @@ const start = (deadline) => {
 
 		let dateBreak = new Date(deadline).getTime();		
 		
-		let dateNow = Date.now();
+		let dateNow = Date.now();	
 		
-
-		// let timeRemaining  = datestop - dateNow;
 		let timeRemaining = dateBreak - dateNow;
 		
 
-		let minutes = Math.floor(timeRemaining / 1000 / 60 % 60);	
+		let minutes = Math.floor(timeRemaining / 1000 / 60 % 60);
+	
 		minutes = getzeroten(minutes);
 
 		// `(${hours} % 12 || 12) < 10 ? '0' : '') + ${hours} % 12 || 12)`
 		
 		let hours = Math.floor(timeRemaining / 1000 / 60 / 60 % 24);
+		
 		hours = getzeroten(hours);
 
 
 		const days = Math.floor(timeRemaining / 1000 / 60 / 60 / 24 );
 		
+
 		return { timeRemaining, minutes, hours, days };
 	}
 
 	const runtimer = () => {
 	
 		let gettimer = getDeadline();
-	
+		// console.log('gettimer: ', gettimer);
 
 		timerBlockDay.textContent = gettimer.days;		
 		timerBlockHour.textContent = gettimer.hours;
