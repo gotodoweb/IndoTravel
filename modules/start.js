@@ -20,30 +20,35 @@ const start = (deadline) => {
 		0 : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 1 : 2];
 
 	const getDeadline = () => {
-
-		let dateBreak = new Date(deadline).getTime();
 		
+		let dateBreak = new Date(deadline).getTime();
+			
 		let dateNow = Date.now();
+	
 		let timeRemaining = dateBreak - dateNow;
 	
 
 		let minutes = Math.floor(timeRemaining / 1000 / 60 % 60);
+	
 		minutes = getzeroten(minutes);
 
 		// `(${hours} % 12 || 12) < 10 ? '0' : '') + ${hours} % 12 || 12)`
 		
 		let hours = Math.floor(timeRemaining / 1000 / 60 / 60 % 24);
+
 		hours = getzeroten(hours);
 
 
 		const days = Math.floor(timeRemaining / 1000 / 60 / 60 / 24 );
 	
+
 		return { timeRemaining, minutes, hours, days };
 	}
 
 	const runtimer = () => {
 	
-		let gettimer = getDeadline();	
+		let gettimer = getDeadline();
+	
 
 		timerBlockDay.textContent = gettimer.days;		
 		timerBlockHour.textContent = gettimer.hours;
