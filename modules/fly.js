@@ -1,4 +1,4 @@
-
+// console.log('fly');
 
 const plane = document.createElement('div');
 const docEl = document.documentElement;
@@ -42,20 +42,27 @@ const calcPositionFLy = () => {
 
 	const maxtop = docEl.clientHeight - plane.clientHeight;
 
+
+	// const maxScroll = docEl.scrollHeight - docEl.clientHeight + 500;
 	const maxScroll = docEl.scrollHeight - docEl.clientHeight;
+
 
 	const percentScroll = (window.pageYOffset * 100) / maxScroll;
 
 
 	const height = window.innerHeight;
+	// задать % расстоянию которое обозначает maxtop
+	// выяснить сколько процентов из maxtop нам необходимо прокрутить
 
 	const shareHeightViewPort = maxtop / 100;
 
 	const top = shareHeightViewPort * percentScroll;
+
+
+
+	const smooth = maxtop / docEl.clientHeight;
+
 	
-
-
-	const smooth = maxtop / docEl.clientHeight;	
 	
 	// plane.style.transform = `translateY(${- top * percentScroll / smooth}px)`;
 	plane.style.transform = `translateY(${- top}px)`;
@@ -64,11 +71,16 @@ const calcPositionFLy = () => {
 	let to = window.pageYOffset;
 
 	if (lastScrollTop > to) {
+	
+		// plane.style.transform = `rotate(${window.pageYOffset}deg)`;		
+		// plane.style.transform = 'rotate(0.5turn)';
 		// plane.style.transform = 'rotate(180deg)';
 		// plane.style.transform = `translateY(${- top / smooth}px) rotate(180deg)`;
 		plane.style.transform = `translateY(${-top}px) rotate(180deg)`;
 	} else if (lastScrollTop < to) {
-		// console.log('down55555555555555555555');
+			
+		// plane.style.transform = 'rotate(0deg)';	
+		// plane.style.transform = `translateY(${- top / smooth}px)`;
 	}
 	
 	lastScrollTop = to;
@@ -89,6 +101,12 @@ const calcPositionFLy = () => {
 		plane.style.transform = `translateY(${docEl.scrollHeight + plane.clientHeight}px)`;
 	}
 
+	
+
+	// if (percentScroll === 0) {
+	// 	plane.style.transform = `translateY(${docEl.scrollHeight - docEl.clientHeight}px)`;
+	// }
+
 
 
 };
@@ -97,8 +115,8 @@ window.addEventListener('scroll', calcPositionFLy);
 calcPositionFLy();
 
 window.addEventListener(`resize`, function () {
-	console.log('resize');
-	console.log('docEl.clientWidth', docEl.clientWidth);
+	// console.log('resize');
+	// console.log('docEl.clientWidth', docEl.clientWidth);
 	if (docEl.clientWidth < 758) {
 
 		plane.style.transform = `translateY(${docEl.scrollHeight + plane.clientHeight}px)`;

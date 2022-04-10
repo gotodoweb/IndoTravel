@@ -2,6 +2,8 @@ import start from "./modules/start.js";
 import './modules/acc.js';
 import './modules/burger.js';
 import './modules/fly.js';
+import './modules/data.js';
+import './modules/booking.js';
 
 
 
