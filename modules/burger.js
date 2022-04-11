@@ -1,7 +1,7 @@
 
 const buttonMenu = document.querySelector('.header__menu-button');
 const docElem = document.documentElement;
-console.log('docElem.clientWidth', docElem.clientWidth);
+
 
 const headerMenu = document.querySelector('.header__menu');
 
