@@ -24,26 +24,54 @@ const sendData = (body, callback) => {
 
 
 const button = document.querySelector('.button.reservation__button');
-button.type = 'submit';
+button.type = "submit";
 // console.log('button: ', button);
+// button.className = 'button reservation__button';
 
-let form = document.querySelector('.reservation__form');
-console.log('form: ', form);
-form.method = 'POST';
-// formsend.id = 'formsend';
+let formsend = document.querySelector('.reservation__form');
+console.log('formsend: ', formsend);
+// formsend.method = 'POST';
+// formsend.action = '/apply/';
+formsend.id = 'formsend';
+
 // formsend.action = 'submit';
-// let form = document.querySelector('#formsend');
 
-form.addEventListener('submit', event => {
+let form = document.getElementById('formsend');
+console.log('form: ', form);
+// form.method = 'POST';
+
+let inputfio = document.querySelector('.reservation__input.reservation__input_name');
+inputfio.name = 'fio';
+
+let phone = document.getElementById('reservation__phone');
+phone.name = 'phone';
+
+let people = document.getElementById('reservation__people');
+// people.name = 'allpeople';
+
+
+function serializeForm(formNode) {
+	const { elements } = formNode;
+
+	Array.from(elements)
+		.forEach((element) => {
+			const { name, value } = element;
+			console.log({ name, value });
+		})
+}
+
+function handleFormSubmit(event) {
+	// Просим форму не отправлять данные самостоятельно
 	event.preventDefault();
-	console.log('submit');
-	console.log('event.target', event.target);
-	// const formData = new FormData(event.target);
-	// const newOrder = Object.fromEntries(formData);
+	console.log('Отправка!');
+	console.log('form.people.value', form.people.value);
+	serializeForm(form)
 
-	// console.log('newOrder: ', newOrder);
+	const formData = new FormData(event.target);
+	// создаем объект и передаем туда formData
+	const newContact = Object.fromEntries(formData);
+	console.log('newContact: ', newContact);
 
-	/*
 	sendData({
 		title: form.title.value,
 		body: form.dates.value,
@@ -53,6 +81,8 @@ form.addEventListener('submit', event => {
 		form.textContent = `Заявка успешно отправлена, номер заявки ${data.id}`;
 
 	});
-	*/
-	// form.reset();
-});
+
+	form.reset();
+};
+
+form.addEventListener('submit', handleFormSubmit);

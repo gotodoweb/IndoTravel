@@ -67,7 +67,7 @@ buttonMenu.addEventListener('click', () => {
 
 headerItems.forEach(elem => {
 	elem.addEventListener('click', (e) => {
-		e.preventDefault();
+		// e.preventDefault();
 		// console.log('e.target', e.target);
 		headerMenu.classList.toggle('header__menu_active');
 	})
@@ -75,7 +75,7 @@ headerItems.forEach(elem => {
 
 
 sectionHero.addEventListener('click', (e) => {
-	e.preventDefault();
+	// e.preventDefault();
 
 	if (e.target !== headerMenu) {
 

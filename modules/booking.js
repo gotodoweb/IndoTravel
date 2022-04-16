@@ -139,34 +139,33 @@ const renderGoods = (data) => {
 	});
 
 
-	reserpeople.addEventListener('change', function (e) {
-		e.preventDefault();
-		let rem = e.target.tagName;
+	reserpeople.addEventListener('change', function () {
+		// e.preventDefault();
+		// let rem = e.target.tagName;
 		// console.log('rem: ', rem);
+		let rem = 'SELECT';
 
-		if (rem === 'SELECT') {
-			let selectda = [...wrapper.options].find(option => option.selected).text;
-			// console.log('selectda2: ', selectda);
-			let selectedOption = [...reserpeople.options].find(option => option.selected).text;
-			// console.log('selectedOption2: ', selectedOption);
+		let selectda = [...wrapper.options].find(option => option.selected).text;
+		// console.log('selectda2: ', selectda);
+		let selectedOption = [...reserpeople.options].find(option => option.selected).text;
+		
 
-			for (let dat of data) {
-				if (dat.date === selectda) {
-					// reserdata.textContent = `${dat.date}, 
-					// минимальное кол-во человек ${dat['min-people']}, 
-					// максимальное кол-во человек ${dat['max-people']}.`;
-					// reserprice.textContent = Number(selectedOption) * dat.price;
-					let priceitogo = Number(selectedOption) * `${dat.price}`;
-					reserprice.textContent = `${priceitogo}P`;
+		for (let dat of data) {
+			if (dat.date === selectda) {
+				console.log('selectedOption2: ', selectedOption);
+				// reserdata.textContent = `${dat.date}, 
+				// минимальное кол-во человек ${dat['min-people']}, 
+				// максимальное кол-во человек ${dat['max-people']}.`;
+				// reserprice.textContent = Number(selectedOption) * dat.price;
+				let priceitogo = Number(selectedOption) * dat.price;
+				reserprice.textContent = `${priceitogo}P`;
 
-					if (selectedOption === 'Количество человек') {
-						reserprice.textContent = `${dat.price}P`;
-					}
+				if (selectedOption === 'Количество человек') {
+					reserprice.textContent = `${dat.price}P`;
 				}
-
 			}
-		}
 
+		}
 
 	});
 
