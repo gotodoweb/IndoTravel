@@ -11,6 +11,7 @@ const textWrapper = document.querySelectorAll('.travel__item-text-wrapper');
 
 
 let heightWrapper = 0;
+
 textWrapper.forEach(elem => {
 	if(heightWrapper < elem.scrollHeight) {
 		heightWrapper = elem.scrollHeight;

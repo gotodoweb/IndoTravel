@@ -1,12 +1,12 @@
 
 import loadGoods from './data.js';
 
-const alldata = await loadGoods();
+// const alldata = await loadGoods();
 const allreservation = document.querySelector('#reservation__date');
 const reserdata = document.getElementById('reservation__date');
 
 const textdata = document.querySelector('.reservation__data');
-
+// console.log('textdata: ', textdata);
 textdata.textContent = ``;
 
 
@@ -18,9 +18,11 @@ const reserpeople = document.getElementById('reservation__people');
 const wrapper = document.createElement('select');
 const wrapperselect = document.createElement('select');
 
-window.addEventListener('load', function () {
+
+const renderGoods = (data) => {
 
 	const tourWrapper = document.querySelector('.reservation__select-wrapper.reservation__select-wrapper_date');
+	// console.log('tourWrapper', tourWrapper);
 
 
 	wrapper.name = "dates";
@@ -28,7 +30,7 @@ window.addEventListener('load', function () {
 	wrapper.className = 'reservation__select';
 
 
-	const tours = alldata.map(item => {
+	const tours = data.map(item => {
 		const tour = document.createElement('option');
 
 		tour.value = `${item.date}`;
@@ -45,9 +47,10 @@ window.addEventListener('load', function () {
 	datatravel.className = 'tour__option';
 	datatravel.textContent = `Дата путешествия`;
 
+	// console.log('datatravel', datatravel);
 
 	wrapper.insertBefore(datatravel, wrapper.children[0]);
-
+	// console.log('wrapper: ', wrapper);
 
 	wrapper.append(...tours);
 
@@ -58,7 +61,7 @@ window.addEventListener('load', function () {
 
 	tourWrapper.append(wrapper);
 	// tourWrapper.replaceChild(wrapper, tourWrapper.firstChild);
-	
+	// console.log('tourWrapper', tourWrapper);
 
 	/****************************** */
 	const tourselectWrapper = document.querySelector('.tour__select-wrapper.tour__select-wrapper_date');
@@ -69,7 +72,7 @@ window.addEventListener('load', function () {
 	wrapperselect.className = 'tour__select';
 
 
-	const toursselect = alldata.map(item => {
+	const toursselect = data.map(item => {
 		const tour = document.createElement('option');
 
 		tour.value = `${item.date}`;
@@ -85,10 +88,10 @@ window.addEventListener('load', function () {
 	datatravelselect.className = 'tour__option';
 	datatravelselect.textContent = `Выбери дату`;
 
-
+	// console.log('datatravelselect', datatravelselect);
 
 	wrapperselect.insertBefore(datatravelselect, wrapperselect.children[0]);
-	console.log('wrapperselect: ', wrapperselect);
+	// console.log('wrapperselect: ', wrapperselect);
 
 	wrapperselect.append(...toursselect);
 
@@ -100,64 +103,74 @@ window.addEventListener('load', function () {
 	tourselectWrapper.append(wrapperselect);
 
 
+	wrapper.addEventListener('change', function () {
+		let reserdata = document.querySelector('.reservation__data');
+		let selectda = [...wrapper.options].find(option => option.selected).text;
+		// console.log('selectda1: ', selectda);
 
-});
-
-
-
-wrapper.addEventListener('change', function () {
-	let reserdata = document.querySelector('.reservation__data');
-	let selectda = [...wrapper.options].find(option => option.selected).text;	
-	let selectedOption = [...reserpeople.options].find(option => option.selected).text;
+		let selectedOption = [...reserpeople.options].find(option => option.selected).text;
+		// console.log('selectedOption1: ', selectedOption);
 
 
-	if (selectda === 'Дата путешествия') {
-		reserdata.textContent = ``;
-		reserprice.textContent = '';
-	}
-	
-	for (let dat of alldata) {
+		if (selectda === 'Дата путешествия') {
+			reserdata.textContent = ``;
+			reserprice.textContent = '';
+		}
 
-		if (dat.date === selectda) {
-			reserdata.textContent = `${selectda}, 
+		for (let dat of data) {
+
+			if (dat.date === selectda) {
+				reserdata.textContent = `${selectda}, 
 					минимальное кол-во человек ${dat['min-people']}, 
 					максимальное кол-во человек ${dat['max-people']}.
 					`;
-			reserprice.textContent = `${dat.price}Р`;
+				reserprice.textContent = `${dat.price}Р`;
 
-			if (selectedOption !== 'Количество человек') {
-				reserprice.textContent = Number(selectedOption) * dat.price;
-			}
-			
-			if (selectda === 'Дата путешествия') {
-				reserprice.textContent = '';
-			}
+				if (selectedOption !== 'Количество человек') {
+					reserprice.textContent = Number(selectedOption) * dat.price;
+				}
 
-		}
-	}
-});
+				if (selectda === 'Дата путешествия') {
+					reserprice.textContent = '';
+				}
 
-
-reserpeople.addEventListener('change', function () {
-	let selectda = [...wrapper.options].find(option => option.selected).text;
-	let selectedOption = [...reserpeople.options].find(option => option.selected).text;
-	
-
-	for (let dat of alldata) {
-		if (dat.date === selectda) {
-			// reserdata.textContent = `${dat.date}, 
-			// минимальное кол-во человек ${dat['min-people']}, 
-			// максимальное кол-во человек ${dat['max-people']}.`;
-			// reserprice.textContent = Number(selectedOption) * dat.price;
-			let priceitogo = Number(selectedOption) * `${dat.price}`;
-			reserprice.textContent = `${priceitogo}P`;
-
-			if (selectedOption === 'Количество человек') {
-				reserprice.textContent = `${dat.price}P`;
 			}
 		}
+	});
 
-	}
 
-});
+	reserpeople.addEventListener('change', function (e) {
+		e.preventDefault();
+		let rem = e.target.tagName;
+		// console.log('rem: ', rem);
 
+		if (rem === 'SELECT') {
+			let selectda = [...wrapper.options].find(option => option.selected).text;
+			// console.log('selectda2: ', selectda);
+			let selectedOption = [...reserpeople.options].find(option => option.selected).text;
+			// console.log('selectedOption2: ', selectedOption);
+
+			for (let dat of data) {
+				if (dat.date === selectda) {
+					// reserdata.textContent = `${dat.date}, 
+					// минимальное кол-во человек ${dat['min-people']}, 
+					// максимальное кол-во человек ${dat['max-people']}.`;
+					// reserprice.textContent = Number(selectedOption) * dat.price;
+					let priceitogo = Number(selectedOption) * `${dat.price}`;
+					reserprice.textContent = `${priceitogo}P`;
+
+					if (selectedOption === 'Количество человек') {
+						reserprice.textContent = `${dat.price}P`;
+					}
+				}
+
+			}
+		}
+
+
+	});
+
+
+}
+
+loadGoods(renderGoods);

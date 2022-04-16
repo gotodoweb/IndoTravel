@@ -4,7 +4,7 @@ import './modules/burger.js';
 import './modules/fly.js';
 import './modules/data.js';
 import './modules/booking.js';
-
+import './modules/forms.js';
 
 
 const init = (op) => {
