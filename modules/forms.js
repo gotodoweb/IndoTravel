@@ -47,7 +47,8 @@ let phone = document.getElementById('reservation__phone');
 phone.name = 'phone';
 
 let people = document.getElementById('reservation__people');
-// people.name = 'allpeople';
+people.name = 'people';
+
 
 
 function serializeForm(formNode) {
@@ -64,6 +65,12 @@ function handleFormSubmit(event) {
 	// Просим форму не отправлять данные самостоятельно
 	event.preventDefault();
 	console.log('Отправка!');
+	
+	let selectedpeople = [...people.options].find(option => option.selected).text;
+	console.log('selectedpeople: ', selectedpeople);	
+	
+	form.people.value = `${selectedpeople}`;
+
 	console.log('form.people.value', form.people.value);
 	serializeForm(form)
 

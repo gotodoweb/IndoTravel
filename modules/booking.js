@@ -138,7 +138,7 @@ const renderGoods = (data) => {
 		}
 	});
 
-
+	
 	reserpeople.addEventListener('change', function () {
 		// e.preventDefault();
 		// let rem = e.target.tagName;
@@ -168,7 +168,7 @@ const renderGoods = (data) => {
 		}
 
 	});
-
+	
 
 }
 
